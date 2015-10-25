@@ -1,0 +1,4 @@
+requests>=2.4.3
+requests_oauthlib>=0.4.1
+six>=1.7.3
+tweepy
