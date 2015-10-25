@@ -19,6 +19,7 @@ class TimelineMiner(object):
         self.user_name = user_name
         self.auth = None
         self.df = pd.DataFrame(columns=['timestamp', 'tweet'], dtype='str')
+        self.text = ""
 
 
     def authenticate(self):
@@ -41,6 +42,11 @@ class TimelineMiner(object):
             for tweet in range(len(timeline)):
 
                 text = timeline[tweet]['text'].replace('"', '\'')
+                if not text[-1] == '.':
+                    text += '.'
+                text += ' \n'
+                self.text += text
+
                 tweet_id = int(timeline[tweet]['id'])
                 date = self.__get_date(timeline, tweet)
 
@@ -80,6 +86,10 @@ class TimelineMiner(object):
     def make_csv(self, path):
         self.df.to_csv(path, encoding='utf8')
 
+    def make_text(self, path):
+        with open(path, "w") as text_file:
+            text_file.write(self.text)
+
     def __get_date(self, timeline, tweet):
         timest = datetime.strptime(timeline[tweet]['created_at'],
                                       "%a %b %d %H:%M:%S +0000 %Y")
@@ -106,7 +116,8 @@ if __name__ == "__main__":
     parser.add_argument('-ats', '--access_token_secret', help='twitter auth access token secret', required=True, type=str)
     parser.add_argument('-un', '--user_name', help='user name', required=True, type=str)
 
-    parser.add_argument('-o', '--out', help='Filename for creating the output CSV file.')
+    parser.add_argument('-o', '--out', help='Filename for creating the output CSV or text file.')
+    parser.add_argument('-r', '--raw', help='Dont dump csv columns, but only raw text.')
     parser.add_argument('-m', '--max', help='Maximum number (integer) of timeline tweets query (searches all by default)')
     parser.add_argument('-k', '--keywords', help='A comma separated list of keywords for filtering (optional).')
     parser.add_argument('-v', '--version', action='version', version='v. 1.0.1')
@@ -134,5 +145,8 @@ if __name__ == "__main__":
 
     print('Authentification successful: %s' %tm.authenticate())
     tm.get_timeline(max=max_t, keywords=keywords)
-    tm.make_csv(args.out)
+    if args.raw:
+        tm.make_text(args.out)
+    else:
+        tm.make_csv(args.out)
 
