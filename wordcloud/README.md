@@ -36,14 +36,14 @@ some existing font.
 
 Check out [https://github.com/amueller/word_cloud/examples/simple.py][simple] for a short intro. A sample output is:
 
-![Constitution](https://github.com/amueller/word_cloud/examples/constitution.png)
+![Constitution](https://github.com/amueller/word_cloud/blob/master/examples/constitution.png)
 
-Or run [https://github.com/amueller/word_cloud/examples/masked.py][masked] to see more options. A sample output is:
+Or run [https://github.com/amueller/word_cloud/blob/master/examples/masked.py][masked] to see more options. A sample output is:
 
-![Alice in Wonderland](https://github.com/amueller/word_cloud/examples/alice.png)
+![Alice in Wonderland](https://github.com/amueller/word_cloud/blob/master/examples/alice.png)
 
 Getting fancy with some colors:
-![Parrot with rainbow colors](https://github.com/amueller/word_cloud/examples/parrot.png)
+![Parrot with rainbow colors](https://github.com/amueller/word_cloud/blob/master/examples/parrot.png)
 
 ## Used in
 
